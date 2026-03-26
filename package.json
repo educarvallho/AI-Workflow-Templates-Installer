@@ -1,0 +1,25 @@
+{
+  "name": "ai-workflow-installer",
+  "version": "1.0.0",
+  "description": "Instalador de workflows e templates para IDEs de IA (Windsurf e Cursor)",
+  "main": "install.js",
+  "scripts": {
+    "start": "node install.js"
+  },
+  "bin": {
+    "ai-workflow-installer": "./install.js"
+  },
+  "keywords": [
+    "windsurf",
+    "cursor",
+    "workflows",
+    "ai",
+    "ide",
+    "templates"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6"
+  }
+}
