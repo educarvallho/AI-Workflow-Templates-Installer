@@ -35,7 +35,7 @@ function adaptFrontmatter(content, ide, filename) {
   // No frontmatter yet — create one
   if (!trimmed.startsWith(FM)) {
     const lines = [`description: ${meta.description}`];
-    if (ide === 'windsurf') lines.push(`auto_execution_mode: ${meta.autoExec}`);
+    if (ide === 'windsurf' || ide === 'antigravity') lines.push(`auto_execution_mode: ${meta.autoExec}`);
     return `---\n${lines.join('\n')}\n---\n${content}`;
   }
 
@@ -57,8 +57,8 @@ function adaptFrontmatter(content, ide, filename) {
     fmLines.unshift(`description: ${meta.description}`);
   }
 
-  // Cursor: remove auto_execution_mode (Windsurf-specific)
-  if (ide === 'cursor') {
+  // Cursor: remove auto_execution_mode (Windsurf/Antigravity-specific)
+  if (ide !== 'windsurf' && ide !== 'antigravity') {
     fmLines = fmLines.filter((l) => !l.startsWith('auto_execution_mode'));
   }
 

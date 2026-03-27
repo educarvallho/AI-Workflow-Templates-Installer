@@ -30,6 +30,10 @@ function detectOS() {
  * Cursor:
  *   workflows → ~/.cursor/commands
  *   templates → ~/.cursor/TEMPLATES_WORKFLOWS
+ *
+ * Antigravity:
+ *   workflows → ~/.gemini/antigravity/global_workflows
+ *   templates → ~/.gemini/antigravity/TEMPLATES_WORKFLOWS
  */
 function getIDEPaths(ide) {
   const home = os.homedir();
@@ -38,6 +42,13 @@ function getIDEPaths(ide) {
     return {
       workflows: path.join(home, '.codeium', 'windsurf', 'global_workflows'),
       templates: path.join(home, '.codeium', 'windsurf', 'TEMPLATES_WORKFLOWS'),
+    };
+  }
+
+  if (ide === 'antigravity') {
+    return {
+      workflows: path.join(home, '.gemini', 'antigravity', 'global_workflows'),
+      templates: path.join(home, '.gemini', 'antigravity', 'TEMPLATES_WORKFLOWS'),
     };
   }
 

@@ -9,12 +9,16 @@ const path = require('path');
 
 /**
  * Returns the full path to the MCP config file for the given IDE.
- *   Windsurf → ~/.codeium/windsurf/mcp_config.json
- *   Cursor   → ~/.cursor/mcp.json
+ *   Windsurf     → ~/.codeium/windsurf/mcp_config.json
+ *   Cursor       → ~/.cursor/mcp.json
+ *   Antigravity  → ~/.gemini/antigravity/mcp_config.json
  */
 function getMcpConfigPath(ide, home) {
   if (ide === 'windsurf') {
     return path.join(home, '.codeium', 'windsurf', 'mcp_config.json');
+  }
+  if (ide === 'antigravity') {
+    return path.join(home, '.gemini', 'antigravity', 'mcp_config.json');
   }
   return path.join(home, '.cursor', 'mcp.json');
 }
