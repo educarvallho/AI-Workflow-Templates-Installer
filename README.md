@@ -1,6 +1,6 @@
 # 🚀 AI Workflow Templates — Installer
 
-Instalador CLI interativo que configura **workflows** e **templates** de desenvolvimento orientado por IA para as IDEs **Windsurf** e **Cursor**.
+Instalador CLI interativo que configura **workflows** e **templates** de desenvolvimento orientado por IA para as IDEs **Windsurf**, **Cursor** e **Antigravity**.
 
 Os workflows implementam um fluxo completo de **Software Design Document (SDD)**: desde a criação do PRD, passando pela especificação técnica, até a geração e execução de tarefas — tudo via comandos `/slash` dentro da IDE.
 
@@ -9,7 +9,7 @@ Os workflows implementam um fluxo completo de **Software Design Document (SDD)**
 ## 📋 Pré-requisitos
 
 - **Node.js** v14 ou superior
-- **Windsurf** e/ou **Cursor** instalados
+- **Windsurf**, **Cursor** e/ou **Antigravity** instalados
 
 ---
 
@@ -34,7 +34,7 @@ O instalador irá:
    - 📦 **Workflows + Templates + MCPs** — instalação completa
    - 📄 **Apenas Workflows + Templates** — sem configurar MCPs
    - 🔌 **Apenas MCPs** — atualizar/adicionar servidores MCP sem tocar nos workflows
-3. **Perguntar** para qual IDE deseja instalar (Windsurf, Cursor ou ambos)
+3. **Perguntar** para qual IDE deseja instalar (Windsurf, Cursor, Antigravity ou todos)
 4. **Mostrar** os caminhos de destino e pedir confirmação (se instalar workflows/templates)
 5. **Instalar workflows e templates** (se selecionado):
    - Copiar os templates para a pasta de templates global
@@ -65,7 +65,15 @@ O instalador irá:
 | macOS   | `~/.cursor/commands/`                  | `~/.cursor/TEMPLATES_WORKFLOWS/`               |
 | Linux   | `~/.cursor/commands/`                  | `~/.cursor/TEMPLATES_WORKFLOWS/`               |
 
-> **Nota:** No Windsurf, os workflows globais ficam em `global_workflows`. No Cursor, os comandos globais ficam em `~/.cursor/commands/`.
+### Antigravity
+
+| SO      | Workflows (Global)                                          | Templates                                                       |
+| ------- | ----------------------------------------------------------- | --------------------------------------------------------------- |
+| Windows | `C:\Users\<User>\.gemini\antigravity\global_workflows\`    | `C:\Users\<User>\.gemini\antigravity\TEMPLATES_WORKFLOWS\`     |
+| macOS   | `~/.gemini/antigravity/global_workflows/`                   | `~/.gemini/antigravity/TEMPLATES_WORKFLOWS/`                    |
+| Linux   | `~/.gemini/antigravity/global_workflows/`                   | `~/.gemini/antigravity/TEMPLATES_WORKFLOWS/`                    |
+
+> **Nota:** No Windsurf e no Antigravity, os workflows globais ficam em `global_workflows`. No Cursor, os comandos globais ficam em `~/.cursor/commands/`.
 
 ---
 
@@ -273,7 +281,7 @@ Para projetos existentes que precisam de documentação:
 
 1. **Detecta o SO** — Usa os caminhos nativos do sistema (barras `\` no Windows, `/` no Unix)
 2. **Adapta caminhos** — Substitui o placeholder `{{TEMPLATES_DIR}}` nos workflows pelo caminho real do sistema do usuário
-3. **Adapta frontmatter** — Para o Cursor, remove o campo `auto_execution_mode` (específico do Windsurf) e garante que `description` exista em todos os workflows
+3. **Adapta frontmatter** — Para o Cursor, remove o campo `auto_execution_mode` (específico do Windsurf e Antigravity) e garante que `description` exista em todos os workflows
 4. **Cria diretórios** — Se as pastas de destino não existirem, cria automaticamente
 5. **Gera templates** — Os arquivos `.md` de template são gerados a partir do conteúdo embarcado
 6. **Gera workflows** — Cada workflow é processado e salvo no destino com os caminhos corretos
@@ -365,6 +373,7 @@ Se você já possui a chave, basta colá-la quando solicitado pelo instalador.
 | --- | ------- | ------------------ | --------------------- |
 | **Windsurf** | `mcp_config.json` | `C:\Users\<User>\.codeium\windsurf\mcp_config.json` | `~/.codeium/windsurf/mcp_config.json` |
 | **Cursor** | `mcp.json` | `C:\Users\<User>\.cursor\mcp.json` | `~/.cursor/mcp.json` |
+| **Antigravity** | `mcp_config.json` | `C:\Users\<User>\.gemini\antigravity\mcp_config.json` | `~/.gemini/antigravity/mcp_config.json` |
 
 ### Formato do arquivo gerado
 
@@ -403,8 +412,8 @@ Se o arquivo de configuração MCP já existir com outros servidores, o instalad
 
 ## ❓ FAQ
 
-**Posso instalar para ambas as IDEs?**
-Sim. Selecione a opção "Ambos" durante a instalação. Os templates e workflows serão instalados nos caminhos de ambas as IDEs.
+**Posso instalar para múltiplas IDEs?**
+Sim. Selecione a opção "Todos" durante a instalação. Os templates e workflows serão instalados nos caminhos de todas as IDEs (Windsurf, Cursor e Antigravity).
 
 **Posso executar o instalador mais de uma vez?**
 Sim. Os workflows e templates serão sobrescritos com a versão mais recente. Servidores MCP já configurados **não são sobrescritos** — apenas novos são adicionados.

@@ -91,12 +91,13 @@ async function run() {
       choices: [
         { name: '🌊  Windsurf', value: 'windsurf' },
         { name: '🖱️   Cursor', value: 'cursor' },
-        { name: '📦  Ambos (Windsurf + Cursor)', value: 'both' },
+        { name: '�  Antigravity', value: 'antigravity' },
+        { name: '📦  Todos (Windsurf + Cursor + Antigravity)', value: 'all-ides' },
       ],
     },
   ]);
 
-  const ides = ide === 'both' ? ['windsurf', 'cursor'] : [ide];
+  const ides = ide === 'all-ides' ? ['windsurf', 'cursor', 'antigravity'] : [ide];
 
   // 3. Show paths and confirm
   if (installWorkflowsAndTemplates) {
@@ -104,7 +105,7 @@ async function run() {
 
     for (const currentIde of ides) {
       const paths = getIDEPaths(currentIde);
-      const label = currentIde === 'windsurf' ? 'Windsurf' : 'Cursor';
+      const label = currentIde === 'windsurf' ? 'Windsurf' : currentIde === 'antigravity' ? 'Antigravity' : 'Cursor';
       console.log(chalk.white.bold(`  ── ${label} ──`));
       console.log(chalk.gray(`    Workflows → `) + chalk.white(paths.workflows));
       console.log(chalk.gray(`    Templates → `) + chalk.white(paths.templates));
@@ -130,7 +131,7 @@ async function run() {
   if (installWorkflowsAndTemplates) {
     for (const currentIde of ides) {
       const paths = getIDEPaths(currentIde);
-      const label = currentIde === 'windsurf' ? 'Windsurf' : 'Cursor';
+      const label = currentIde === 'windsurf' ? 'Windsurf' : currentIde === 'antigravity' ? 'Antigravity' : 'Cursor';
 
       const tplResults = installTemplates(paths.templates);
       printResults(`📁  Templates → ${label}`, tplResults);
@@ -274,7 +275,7 @@ async function promptMcpSetup(ides, skipConfirmation = false) {
 
   for (const currentIde of ides) {
     const configPath = getMcpConfigPath(currentIde, home);
-    const label = currentIde === 'windsurf' ? 'Windsurf' : 'Cursor';
+    const label = currentIde === 'windsurf' ? 'Windsurf' : currentIde === 'antigravity' ? 'Antigravity' : 'Cursor';
 
     // Build IDE-specific server configs
     const serversToInstall = {};
