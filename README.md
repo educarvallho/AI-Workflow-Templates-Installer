@@ -102,7 +102,6 @@ Guia interativo para criar um **Documento de Requisitos de Produto** completo e 
 
 **O que faz:**
 - Faz perguntas de clarificação antes de gerar qualquer conteúdo
-- Integra com Jira MCP para buscar contexto de negócio
 - Gera o PRD seguindo o template padronizado
 - Salva em `./tasks/prd-[nome-funcionalidade]/prd.md`
 
@@ -420,9 +419,6 @@ Sim. Os workflows e templates serão sobrescritos com a versão mais recente. Se
 
 **Os workflows funcionam em qualquer linguagem/framework?**
 Sim. Os workflows foram projetados para serem agnósticos de linguagem. Eles se adaptam ao stack encontrado no repositório.
-
-**Preciso do Jira MCP configurado?**
-Alguns workflows (`/criar-prd`, `/criar-tech-spec`) mencionam o Jira MCP para buscar regras de negócio. Se não configurado, os workflows ainda funcionam, mas sem a integração com Jira.
 
 **Preciso do Context7 MCP configurado?**
 Os workflows `/executar-task` e `/criar-tech-spec` utilizam o Context7 MCP para consultar documentação de bibliotecas. Se não configurado, a IA usará seu conhecimento interno. Para melhor resultado, configure com API Key.
