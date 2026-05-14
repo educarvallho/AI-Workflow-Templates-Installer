@@ -9,9 +9,9 @@ const path = require('path');
 
 function detectOS() {
   switch (os.platform()) {
-    case 'win32':  return 'Windows';
+    case 'win32': return 'Windows';
     case 'darwin': return 'macOS';
-    default:       return 'Linux';
+    default: return 'Linux';
   }
 }
 
@@ -102,6 +102,36 @@ const TEMPLATE_FILES = [
 // ============================================================
 
 const TEMPLATES_PLACEHOLDER = '{{TEMPLATES_DIR}}';
+const RULES_DIR_PLACEHOLDER = '{{RULES_DIR}}';
+const RULES_FILE_EXT_PLACEHOLDER = '{{RULES_FILE_EXT}}';
+const RULE_FRONTMATTER_PLACEHOLDER = '{{RULE_FRONTMATTER}}';
+
+// ============================================================
+// IDE-specific rules configuration
+// ============================================================
+
+const IDE_RULES_CONFIG = {
+  windsurf: {
+    rulesDir: '.windsurf/rules',
+    fileExt: '.md',
+    name: 'Windsurf',
+    ruleFrontmatter: (description) =>
+      `---\ntrigger: model_decision\ndescription: ${description}\n---`,
+  },
+  cursor: {
+    rulesDir: '.cursor/rules',
+    fileExt: '.md',
+    name: 'Cursor',
+    ruleFrontmatter: (description) =>
+      `---\ndescription: ${description}\nalwaysApply: true\n---`,
+  },
+  antigravity: {
+    rulesDir: '.agents/rules',
+    fileExt: '.md',
+    name: 'Antigravity',
+    ruleFrontmatter: (_description) => '',
+  },
+};
 
 module.exports = {
   detectOS,
@@ -109,4 +139,8 @@ module.exports = {
   WORKFLOW_META,
   TEMPLATE_FILES,
   TEMPLATES_PLACEHOLDER,
+  RULES_DIR_PLACEHOLDER,
+  RULES_FILE_EXT_PLACEHOLDER,
+  RULE_FRONTMATTER_PLACEHOLDER,
+  IDE_RULES_CONFIG,
 };

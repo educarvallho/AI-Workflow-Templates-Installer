@@ -3,7 +3,7 @@
 const os = require('os');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const { detectOS, getIDEPaths, WORKFLOW_META } = require('./config');
+const { detectOS, getIDEPaths, WORKFLOW_META, IDE_RULES_CONFIG } = require('./config');
 const { installTemplates, installWorkflows } = require('./installer');
 const { MCP_SERVERS } = require('./mcp-servers');
 const { getMcpConfigPath, mergeMcpConfig } = require('./mcp-installer');
@@ -105,7 +105,7 @@ async function run() {
 
     for (const currentIde of ides) {
       const paths = getIDEPaths(currentIde);
-      const label = currentIde === 'windsurf' ? 'Windsurf' : currentIde === 'antigravity' ? 'Antigravity' : 'Cursor';
+      const label = IDE_RULES_CONFIG[currentIde].name;
       console.log(chalk.white.bold(`  ── ${label} ──`));
       console.log(chalk.gray(`    Workflows → `) + chalk.white(paths.workflows));
       console.log(chalk.gray(`    Templates → `) + chalk.white(paths.templates));
@@ -131,9 +131,9 @@ async function run() {
   if (installWorkflowsAndTemplates) {
     for (const currentIde of ides) {
       const paths = getIDEPaths(currentIde);
-      const label = currentIde === 'windsurf' ? 'Windsurf' : currentIde === 'antigravity' ? 'Antigravity' : 'Cursor';
+      const label = IDE_RULES_CONFIG[currentIde].name;
 
-      const tplResults = installTemplates(paths.templates);
+      const tplResults = installTemplates(paths.templates, currentIde);
       printResults(`📁  Templates → ${label}`, tplResults);
 
       const wfResults = installWorkflows(paths.workflows, paths.templates, currentIde);
@@ -275,7 +275,7 @@ async function promptMcpSetup(ides, skipConfirmation = false) {
 
   for (const currentIde of ides) {
     const configPath = getMcpConfigPath(currentIde, home);
-    const label = currentIde === 'windsurf' ? 'Windsurf' : currentIde === 'antigravity' ? 'Antigravity' : 'Cursor';
+    const label = IDE_RULES_CONFIG[currentIde].name;
 
     // Build IDE-specific server configs
     const serversToInstall = {};

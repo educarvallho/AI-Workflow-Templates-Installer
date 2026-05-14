@@ -19,7 +19,7 @@ auto_execution_mode: 1
     - PRD: \`./tasks/prd-[nome-funcionalidade]/prd.md\`
     - Tech Spec: \`./tasks/prd-[nome-funcionalidade]/techspec.md\`
     - Tasks: \`./tasks/prd-[nome-funcionalidade]/tasks.md\`
-    - Regras do Projeto: @.windsurf/rules
+    - Regras do Projeto: @{{RULES_DIR}}
 
     ## Etapas para Executar
 

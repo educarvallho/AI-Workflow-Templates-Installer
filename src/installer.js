@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const { WORKFLOW_META } = require('./config');
-const { replaceTemplatePaths, adaptFrontmatter } = require('./processor');
+const { replaceTemplatePaths, replaceIDEPlaceholders, adaptFrontmatter } = require('./processor');
 const templates = require('./templates');
 const workflows = require('./workflows');
 
@@ -21,16 +21,18 @@ function ensureDir(dir) {
 
 /**
  * Writes all embedded templates to the target directory.
+ * IDE-specific placeholders are replaced before writing.
  * Returns an array of { file, ok, reason? } results.
  */
-function installTemplates(templatesDir) {
+function installTemplates(templatesDir, ide) {
   ensureDir(templatesDir);
   const results = [];
 
   for (const [filename, content] of Object.entries(templates)) {
     try {
       const dest = path.join(templatesDir, filename);
-      fs.writeFileSync(dest, content, 'utf-8');
+      const processed = replaceIDEPlaceholders(content, ide);
+      fs.writeFileSync(dest, processed, 'utf-8');
       results.push({ file: filename, ok: true });
     } catch (err) {
       results.push({ file: filename, ok: false, reason: err.message });
@@ -45,7 +47,7 @@ function installTemplates(templatesDir) {
 // ============================================================
 
 /**
- * Processes each embedded workflow (path replacement + frontmatter)
+ * Processes each embedded workflow (path replacement + IDE placeholders + frontmatter)
  * and writes to the target directory.
  * Returns an array of { file, ok, reason? } results.
  */
@@ -56,6 +58,7 @@ function installWorkflows(workflowsDir, templatesDir, ide) {
   for (const [filename, rawContent] of Object.entries(workflows)) {
     try {
       let content = replaceTemplatePaths(rawContent, templatesDir);
+      content = replaceIDEPlaceholders(content, ide);
       content = adaptFrontmatter(content, ide, filename);
 
       const dest = path.join(workflowsDir, filename);
