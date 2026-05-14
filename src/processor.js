@@ -1,7 +1,14 @@
 'use strict';
 
 const path = require('path');
-const { WORKFLOW_META, TEMPLATES_PLACEHOLDER } = require('./config');
+const {
+  WORKFLOW_META,
+  TEMPLATES_PLACEHOLDER,
+  RULES_DIR_PLACEHOLDER,
+  RULES_FILE_EXT_PLACEHOLDER,
+  RULE_FRONTMATTER_PLACEHOLDER,
+  IDE_RULES_CONFIG,
+} = require('./config');
 
 // ============================================================
 // Template path replacement
@@ -15,6 +22,35 @@ function replaceTemplatePaths(content, templatesDir) {
   return content
     .split(TEMPLATES_PLACEHOLDER + '/')
     .join(templatesDir + path.sep);
+}
+
+// ============================================================
+// IDE-specific placeholder replacement
+// ============================================================
+
+/**
+ * Replaces IDE-specific placeholders in the content:
+ *   {{RULES_DIR}}         → e.g. .windsurf/rules, .cursor/rules, .agent/rules
+ *   {{RULES_FILE_EXT}}    → e.g. .md, .mdc
+ *   {{RULE_FRONTMATTER}}  → IDE-appropriate YAML frontmatter for rule files
+ */
+function replaceIDEPlaceholders(content, ide) {
+  const config = IDE_RULES_CONFIG[ide];
+  if (!config) return content;
+
+  let result = content
+    .split(RULES_DIR_PLACEHOLDER)
+    .join(config.rulesDir);
+
+  result = result
+    .split(RULES_FILE_EXT_PLACEHOLDER)
+    .join(config.fileExt);
+
+  result = result
+    .split(RULE_FRONTMATTER_PLACEHOLDER)
+    .join(config.ruleFrontmatter('Usar sempre que precisar tomar decisão arquitetural ou técnicas'));
+
+  return result;
 }
 
 // ============================================================
@@ -67,5 +103,6 @@ function adaptFrontmatter(content, ide, filename) {
 
 module.exports = {
   replaceTemplatePaths,
+  replaceIDEPlaceholders,
   adaptFrontmatter,
 };

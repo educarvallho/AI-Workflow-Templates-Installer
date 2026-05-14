@@ -64,14 +64,11 @@ auto_execution_mode: 1
   - Garantir que diretório \`documentos\` exista
   - Salvar documento como: \`documentos/techspec-codebase.md\`
   - Confirmar operação de escrita e caminho
-  - Garantir regra de usar documentação da codebase em \`.windsurf/rules/techspec-codebase.md\` usando o template abaixo:
+  - Garantir regra de usar documentação da codebase em \`{{RULES_DIR}}/techspec-codebase{{RULES_FILE_EXT}}\` usando o template abaixo:
 
   Nome da regra: techspec-codebase
   \`\`\`md
-  ---
-  trigger: model_decision
-  description: Usar sempre que precisar tomar decisão arquitetural ou técnicas
-  ---
+  {{RULE_FRONTMATTER}}
   [conteúdo da regra - máximo 6000 caracteres garantindo o uso do arquivo \`documentos/techspec-codebase.md\` contendo toda a doc do codebase]
   \`\`\` 
 </system_instructions>

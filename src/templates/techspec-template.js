@@ -124,7 +124,7 @@ type NomeServico interface {
  
 ### Conformidade com Padrões
  
-[Pesquisa as rules na pasta @.windsurf/rules que se encaixam e se apliquem nesta techspec e liste-as abaixo:]
+[Pesquisa as rules na pasta @{{RULES_DIR}} que se encaixam e se apliquem nesta techspec e liste-as abaixo:]
  
 ### Arquivos relevantes e dependentes
  
