@@ -34,6 +34,10 @@ function detectOS() {
  * Antigravity:
  *   workflows → ~/.gemini/antigravity/global_workflows
  *   templates → ~/.gemini/antigravity/TEMPLATES_WORKFLOWS
+ *
+ * Claude Code:
+ *   workflows → ~/.claude/commands
+ *   templates → ~/.claude/TEMPLATES_WORKFLOWS
  */
 function getIDEPaths(ide) {
   const home = os.homedir();
@@ -49,6 +53,13 @@ function getIDEPaths(ide) {
     return {
       workflows: path.join(home, '.gemini', 'antigravity', 'global_workflows'),
       templates: path.join(home, '.gemini', 'antigravity', 'TEMPLATES_WORKFLOWS'),
+    };
+  }
+
+  if (ide === 'claudecode') {
+    return {
+      workflows: path.join(home, '.claude', 'commands'),
+      templates: path.join(home, '.claude', 'TEMPLATES_WORKFLOWS'),
     };
   }
 
@@ -129,6 +140,12 @@ const IDE_RULES_CONFIG = {
     rulesDir: '.agents/rules',
     fileExt: '.md',
     name: 'Antigravity',
+    ruleFrontmatter: (_description) => '',
+  },
+  claudecode: {
+    rulesDir: '.claude',
+    fileExt: '.md',
+    name: 'Claude Code',
     ruleFrontmatter: (_description) => '',
   },
 };
