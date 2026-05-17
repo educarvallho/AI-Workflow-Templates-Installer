@@ -12,6 +12,7 @@ const path = require('path');
  *   Windsurf     → ~/.codeium/windsurf/mcp_config.json
  *   Cursor       → ~/.cursor/mcp.json
  *   Antigravity  → ~/.gemini/antigravity/mcp_config.json
+ *   Claude Code  → ~/.claude/settings.json
  */
 function getMcpConfigPath(ide, home) {
   if (ide === 'windsurf') {
@@ -19,6 +20,9 @@ function getMcpConfigPath(ide, home) {
   }
   if (ide === 'antigravity') {
     return path.join(home, '.gemini', 'antigravity', 'mcp_config.json');
+  }
+  if (ide === 'claudecode') {
+    return path.join(home, '.claude', 'settings.json');
   }
   return path.join(home, '.cursor', 'mcp.json');
 }

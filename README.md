@@ -9,7 +9,7 @@ Os workflows implementam um fluxo completo de **Software Design Document (SDD)**
 ## 📋 Pré-requisitos
 
 - **Node.js** v14 ou superior
-- **Windsurf**, **Cursor** e/ou **Antigravity** instalados
+- **Windsurf**, **Cursor**, **Antigravity** e/ou **Claude Code** instalados
 
 ---
 
@@ -34,7 +34,7 @@ O instalador irá:
    - 📦 **Workflows + Templates + MCPs** — instalação completa
    - 📄 **Apenas Workflows + Templates** — sem configurar MCPs
    - 🔌 **Apenas MCPs** — atualizar/adicionar servidores MCP sem tocar nos workflows
-3. **Perguntar** para qual IDE deseja instalar (Windsurf, Cursor, Antigravity ou todos)
+3. **Perguntar** para qual IDE deseja instalar (Windsurf, Cursor, Antigravity, Claude Code ou todos)
 4. **Mostrar** os caminhos de destino e pedir confirmação (se instalar workflows/templates)
 5. **Instalar workflows e templates** (se selecionado):
    - Copiar os templates para a pasta de templates global
@@ -72,6 +72,14 @@ O instalador irá:
 | Windows | `C:\Users\<User>\.gemini\antigravity\global_workflows\`    | `C:\Users\<User>\.gemini\antigravity\TEMPLATES_WORKFLOWS\`     |
 | macOS   | `~/.gemini/antigravity/global_workflows/`                   | `~/.gemini/antigravity/TEMPLATES_WORKFLOWS/`                    |
 | Linux   | `~/.gemini/antigravity/global_workflows/`                   | `~/.gemini/antigravity/TEMPLATES_WORKFLOWS/`                    |
+
+### Claude Code
+
+| SO      | Commands (Global)                      | Templates                                       |
+| ------- | -------------------------------------- | ----------------------------------------------- |
+| Windows | `C:\Users\<User>\.claude\commands\`    | `C:\Users\<User>\.claude\TEMPLATES_WORKFLOWS\`  |
+| macOS   | `~/.claude/commands/`                  | `~/.claude/TEMPLATES_WORKFLOWS/`                |
+| Linux   | `~/.claude/commands/`                  | `~/.claude/TEMPLATES_WORKFLOWS/`                |
 
 > **Nota:** No Windsurf e no Antigravity, os workflows globais ficam em `global_workflows`. No Cursor, os comandos globais ficam em `~/.cursor/commands/`.
 
@@ -373,6 +381,7 @@ Se você já possui a chave, basta colá-la quando solicitado pelo instalador.
 | **Windsurf** | `mcp_config.json` | `C:\Users\<User>\.codeium\windsurf\mcp_config.json` | `~/.codeium/windsurf/mcp_config.json` |
 | **Cursor** | `mcp.json` | `C:\Users\<User>\.cursor\mcp.json` | `~/.cursor/mcp.json` |
 | **Antigravity** | `mcp_config.json` | `C:\Users\<User>\.gemini\antigravity\mcp_config.json` | `~/.gemini/antigravity/mcp_config.json` |
+| **Claude Code** | `settings.json` | `C:\Users\<User>\.claude\settings.json` | `~/.claude/settings.json` |
 
 ### Formato do arquivo gerado
 
@@ -407,12 +416,30 @@ Sem API Key (funcionalidade limitada):
 
 Se o arquivo de configuração MCP já existir com outros servidores, o instalador **preserva todos os servidores existentes** e apenas adiciona os novos. Servidores que já estiverem configurados **não são sobrescritos**.
 
+### Claude Code — Formato gerado
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "sua-api-key-aqui"
+      }
+    }
+  }
+}
+```
+
+> **Nota:** O instalador faz merge no `settings.json` do Claude Code preservando todas as outras configurações existentes no arquivo (tema, permissões, etc.).
+
 ---
 
 ## ❓ FAQ
 
 **Posso instalar para múltiplas IDEs?**
-Sim. Selecione a opção "Todos" durante a instalação. Os templates e workflows serão instalados nos caminhos de todas as IDEs (Windsurf, Cursor e Antigravity).
+Sim. Selecione a opção "Todos" durante a instalação. Os templates e workflows serão instalados nos caminhos de todas as IDEs (Windsurf, Cursor, Antigravity e Claude Code).
 
 **Posso executar o instalador mais de uma vez?**
 Sim. Os workflows e templates serão sobrescritos com a versão mais recente. Servidores MCP já configurados **não são sobrescritos** — apenas novos são adicionados.
