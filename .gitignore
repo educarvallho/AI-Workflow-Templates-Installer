@@ -171,6 +171,7 @@ test-results/
 # Documentation build output
 docs/_build/
 docs/build/
+docs/superpowers/plans/
 
 # Database files
 *.db
