@@ -22,6 +22,10 @@ const MCP_SERVERS = {
     configCursor: {
       url: 'https://mcp.context7.com/mcp',
     },
+    configClaudeCode: {
+      type: 'http',
+      url: 'https://mcp.context7.com/mcp',
+    },
   },
   'mcp-playwright': {
     label: '🎭  Playwright — Automação de browser e testes E2E',
