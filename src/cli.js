@@ -92,12 +92,13 @@ async function run() {
         { name: '🌊  Windsurf', value: 'windsurf' },
         { name: '🖱️   Cursor', value: 'cursor' },
         { name: '�  Antigravity', value: 'antigravity' },
-        { name: '📦  Todos (Windsurf + Cursor + Antigravity)', value: 'all-ides' },
+        { name: '🤖  Claude Code', value: 'claudecode' },
+        { name: '📦  Todos (Windsurf + Cursor + Antigravity + Claude Code)', value: 'all-ides' },
       ],
     },
   ]);
 
-  const ides = ide === 'all-ides' ? ['windsurf', 'cursor', 'antigravity'] : [ide];
+  const ides = ide === 'all-ides' ? ['windsurf', 'cursor', 'antigravity', 'claudecode'] : [ide];
 
   // 3. Show paths and confirm
   if (installWorkflowsAndTemplates) {
@@ -280,10 +281,14 @@ async function promptMcpSetup(ides, skipConfirmation = false) {
     // Build IDE-specific server configs
     const serversToInstall = {};
     for (const [name, { srv, apiKey }] of Object.entries(selectedServersData)) {
-      // Use configCursor for Cursor IDE if available, otherwise use default config
-      const baseConfig = currentIde === 'cursor' && srv.configCursor 
-        ? { ...srv.configCursor }
-        : { ...srv.config };
+      let baseConfig;
+      if (currentIde === 'cursor' && srv.configCursor) {
+        baseConfig = { ...srv.configCursor };
+      } else if (currentIde === 'claudecode' && srv.configClaudeCode) {
+        baseConfig = { ...srv.configClaudeCode };
+      } else {
+        baseConfig = { ...srv.config };
+      }
 
       if (srv.requiresApiKey && apiKey) {
         if (!baseConfig.headers) baseConfig.headers = {};
